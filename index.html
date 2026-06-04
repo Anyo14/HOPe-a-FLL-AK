@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HOPe a FLL — A. Kulhánková</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #c0151a;
+      --red-dark: #8b0e11;
+      --red-light: #e8282d;
+      --off-white: #faf8f5;
+      --text: #1a1a1a;
+      --gray: #6b6b6b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: var(--off-white);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+    }
+
+    /* ── ABOUT CARD ── */
+    .about-card {
+      background: #fff;
+      border-left: 5px solid var(--red);
+      padding: 28px 32px;
+      margin: 40px 0 32px;
+      box-shadow: 0 2px 18px rgba(0,0,0,0.07);
+    }
+
+    .about-card p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #333;
+    }
+
+    /* ── CHAPTER CHIPS ── */
+    .chapters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 36px;
+    }
+
+    .chip {
+      background: var(--red);
+      color: #fff;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--red);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e8e0d8;
+    }
+
+    /* ── PDF VIEWER ── */
+    #cteni {
+      margin-top: 8px;
+    }
+
+    .pdf-frame-wrap {
+      background: #2a2a2a;
+      border-top: 5px solid var(--red);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    }
+
+    .pdf-toolbar {
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-toolbar label {
+      color: rgba(255,255,255,0.6);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .toolbar-btn {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .toolbar-btn:hover { background: var(--red-light); }
+
+    .toolbar-btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.7);
+    }
+
+    .toolbar-btn.secondary:hover {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+    }
+
+    #pdf-embed {
+      width: 100%;
+      height: 760px;
+      border: none;
+      display: block;
+      background: #555;
+    }
+
+    .pdf-fallback {
+      display: none;
+      padding: 48px 24px;
+      text-align: center;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .pdf-fallback p { margin-bottom: 16px; font-style: italic; }
+
+    /* ── TIPS ── */
+    #tipy { margin-top: 52px; }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .tip-card {
+      background: #fff;
+      padding: 20px 20px 20px 18px;
+      border-top: 4px solid var(--red);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .tip-card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+
+    .tip-card p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--red-dark);
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      padding: 28px 16px;
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    footer strong { color: #fff; font-style: normal; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .header-inner { flex-direction: column; gap: 20px; padding: 36px 20px 32px; }
+      .logo-title { font-size: 3rem; }
+      #pdf-embed { height: 500px; }
+      .about-card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+
+    <!-- ABOUT -->
+    <section id="o-knize">
+      <div class="about-card">
+        <p>
+          Tato knížka je souhrnem zkušeností, pokusů a omylů týmu <strong>HOPe</strong> — party studentů z Prahy, kteří prošli regionálními i národními koly FLL a rozhodli se vše, co se naučili, sepsat na jedno místo. Najdete zde praktické rady o rozdělení rolí v týmu, tipy na Robot Game, Robot Design, Inovační projekt i Core Values a upřímné příběhy z vlastních soutěží.
+        </p>
+      </div>
+
+      <div class="chapters">
+        <span class="chip">O First LEGO League</span>
+        <span class="chip">O týmu HOPe</span>
+        <span class="chip">Tým &amp; Role</span>
+        <span class="chip">Soutěžní kola</span>
+        <span class="chip">Robot Game</span>
+        <span class="chip">Robot Design</span>
+        <span class="chip">Inovační projekt</span>
+        <span class="chip">Core Values</span>
+        <span class="chip">Závěr</span>
+      </div>
+    </section>
+
+    <!-- PDF READER -->
+    <section id="cteni">
+      <div class="section-title">Číst knihu online</div>
+      <div class="pdf-frame-wrap">
+        <div class="pdf-toolbar">
+          <label>HOPe a FLL — A. Kulhánková</label>
+          <a class="toolbar-btn" href="HOPe_a_FLL.pdf" download>⬇ Stáhnout PDF</a>
+          <a class="toolbar-btn secondary" href="HOPe_a_FLL.pdf" target="_blank">↗ Otevřít v nové záložce</a>
+        </div>
+        <object id="pdf-embed" data="HOPe_a_FLL.pdf" type="application/pdf">
+          <div class="pdf-fallback">
+            <p>Váš prohlížeč nepodporuje zobrazení PDF přímo na stránce.</p>
+            <a class="toolbar-btn" href="HOPe_a_FLL.pdf" download>Stáhnout PDF</a>
+          </div>
+        </object>
+      </div>
+    </section>
+
+    <!-- TIPS -->
+    <section id="tipy">
+      <div class="section-title">Tipy z knihy</div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <h3>Čas je základ</h3>
+          <p>Pravidelná týdenní schůzka pomáhá disciplíně i organizaci. Věnujte rovnoměrný čas všem čtyřem kategoriím — Robot Game, Robot Design, Inovační projekt i Core Values.</p>
+        </div>
+        <div class="tip-card">
+          <h3>Role v týmu</h3>
+          <p>Rozdělte role (vedoucí, programátor, HR, šéf IP, šéf RD, tvůrce nástavců), ale každý by měl mít základní přehled o všem a zapojit se do většiny témat.</p>
+        </div>
+        <div class="tip-card">
+          <h3>Robot Game</h3>
+          <p>Plánujte jízdy dopředu, ještě než začnete stavět nástavce. Maximálně cca 6 nástavců — čím více toho jeden zvládne, tím lépe.</p>
+        </div>
+        <div class="tip-card">
+          <h3>Software</h3>
+          <p>PyBricks na SPIKE Prime nabízí lepší přístup k hardwaru než originální firmware. Používejte PID kontrolér a vlastní akceleraci/deceleraci.</p>
+        </div>
+        <div class="tip-card">
+          <h3>Inovační projekt</h3>
+          <p>Téma vyberte kolektivně u jednoho stolu. Ptejte se: „Je náš projekt inovativní? Přináší něco nového?" Prezentace by měla být pestrá a zábavná.</p>
+        </div>
+        <div class="tip-card">
+          <h3>Core Values</h3>
+          <p>Nepodceňujte tuto kategorii — má stejnou váhu jako ostatní. Popřejte soupeřům štěstí, připravte dárečky, chovejte se hezky v týmu i mimo něj.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <strong>HOPe a FLL</strong> &nbsp;·&nbsp; A. Kulhánková &nbsp;·&nbsp; Stanice techniků, DDM Praha 6
+  </footer>
+
+</body>
+</html>
